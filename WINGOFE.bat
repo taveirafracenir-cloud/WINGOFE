@@ -1,5 +1,13 @@
 @echo off
 color 0f
+
+if not exist "890" (
+    echo A pasta '890' nao foi encontrada.
+    echo O sistema WINGOFE nao pode ser iniciado.
+    pause >nul
+    exit
+)
+
 :MENU_PRINCIPAL
 cls
 echo.
@@ -10,6 +18,7 @@ echo.
 echo =================================
 echo.
 echo Digite 'iniciar' para comecar.
+echo Digite 'sair' para fechar.
 echo.
 set /p comando="WINGOFE > "
 
@@ -27,22 +36,14 @@ echo.
 echo Iniciando programas da pasta 890...
 echo.
 
-if not exist "890\" (
-    echo A pasta '890' nao foi encontrada.
-    echo Certifique-se de que a pasta existe e esta vazia.
+rem Executa o arquivo principal dentro da pasta 890
+if exist "890\menu.bat" (
+    call "890\menu.bat"
+) else (
+    echo O arquivo 'menu.bat' nao foi encontrado em '890'.
     echo.
     pause >nul
-    goto MENU_PRINCIPAL
 )
-
-for %%f in ("890\*.*") do (
-    start "" "%%f"
-)
-
-echo.
-echo Todos os programas foram iniciados.
-echo.
-pause >nul
 goto MENU_PRINCIPAL
 
 :SAIR
